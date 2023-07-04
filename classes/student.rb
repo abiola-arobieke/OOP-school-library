@@ -1,6 +1,3 @@
-# frozen_string_literal: true
-
-# import person.rb file
 require './classes/person'
 
 # Define a sub-base class
@@ -11,6 +8,6 @@ class Student < Person
   end
 
   def play_hooky
-    "¯\(ツ)/¯"
+    "¯\"\"(ツ)/¯"
   end
 end
