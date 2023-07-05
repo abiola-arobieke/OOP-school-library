@@ -11,6 +11,7 @@ class Person
   attr_reader :id
   attr_accessor :name, :age
   # accessor set methods
+  
   def of_age
     @age >= 18
   end
