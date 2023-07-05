@@ -1,10 +1,11 @@
 require './classes/nameable'
 
+# Inherit the person from the nameable class
 class Person < Nameable
-   # accessor get methods
-   attr_reader :id
-   attr_accessor :name, :age
-   
+  # accessor get methods
+  attr_reader :id
+  attr_accessor :name, :age
+
   def initialize(age, name = 'Unknown', parent_permission: true)
     @id = Random.rand(1..1000)
     @name = name
