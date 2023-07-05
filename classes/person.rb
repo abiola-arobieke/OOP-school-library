@@ -10,7 +10,6 @@ class Person
   # accessor get methods
   attr_reader :id
   attr_accessor :name, :age
-
   # accessor set methods
   def of_age
     @age >= 18
@@ -19,6 +18,10 @@ class Person
   private :of_age
 
   def can_use_services
-    of_age && @parent_permission
+    of_age || @parent_permission
+  end
+
+  def correct_name
+    @name
   end
 end
