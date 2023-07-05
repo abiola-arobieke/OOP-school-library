@@ -2,11 +2,11 @@ require './classes/nameable'
 
 # Inherit the person from the nameable class
 class Person < Nameable
+  super()
+  
   # accessor get methods
   attr_reader :id
   attr_accessor :name, :age
-  
-  super()
 
   def initialize(age, name = 'Unknown', parent_permission: true)
     @id = Random.rand(1..1000)
