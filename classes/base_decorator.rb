@@ -2,10 +2,10 @@ require './classes/Nameable'
 
 # Add the base class for the decorator
 class BaseDecorator < Nameable
-  super()
   attr_accessor :nameable
 
   def initialize(nameable)
+    super()
     @nameable = nameable
   end
 
