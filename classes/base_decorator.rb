@@ -1,13 +1,14 @@
 require './classes/Nameable'
 
+# Add the base class for the decorator
 class BaseDecorator < Nameable
-    attr_accessor :nameable
+  attr_accessor :nameable
 
-    def initialize(nameable)
-        @nameable = nameable
-    end
+  def initialize(nameable)
+    @nameable = nameable
+  end
 
-    def correct_name(nameable)
-        @nameable.correct_name
-    end
+  def correct_name(_nameable)
+    @nameable.correct_name
+  end
 end
