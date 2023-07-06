@@ -29,4 +29,8 @@ class Person < Nameable
   def correct_name
     @name
   end
+
+  def add_rental(person)
+    @rentals.push(person)
+  end
 end
