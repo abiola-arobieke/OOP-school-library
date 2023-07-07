@@ -72,21 +72,19 @@ class App
       print 'Has parent permission? [y/n]: '
       parent_permission = gets.chomp.downcase
     end
+    student = Student.new(age: age, name: name, parent_permission: parent_permission, classroom: @classroom)
+      @persons << student
     case parent_permission
     when 'n'
-      student = Student.new(age: age, name: name, parent_permission: parent_permission, classroom: @classroom)
-      @persons << student
       puts 'Student doesn\'t have parent permission, and can\'t rent book'
     when 'y'
-      student = Student.new(age: age, name: name, parent_permission: parent_permission, classroom: @classroom)
-      @persons << student
       puts 'Student added successfully'
     end
   end
 
   def create_teacher
     puts 'Add a teacher'
-    print 'Enter teacher name: '
+    print 'Enter name: '
     name = gets.chomp
     print 'Enter age: '
     age = gets.chomp.to_i
