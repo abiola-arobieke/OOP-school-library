@@ -35,12 +35,12 @@ class App
     @book_shelf.push(book)
     puts "#{title} has been successfully added to the book shelf."
   end
-  
+
   def list_all_book
     puts 'No book in the libary! Please enter 1 to add a book.' if @book_shelf.empty?
     @book_shelf.each { |book| puts "[Book] Title: #{book.title}, Author: #{book.author}" }
   end
- 
+
   # persons
   def create_person
     puts 'Enter 1 to add a student or 2 to add a teacher or 7 to go back : '
@@ -52,7 +52,7 @@ class App
     when '2'
       create_teacher
     when '7'
-        start_app
+      start_app
     else
       puts 'Invalid input!. Try again'
       create_person
@@ -67,10 +67,10 @@ class App
     age = gets.chomp.to_i
     print 'Has parent permission? [y/n]: '
     parent_permission = gets.chomp.downcase
-    until parent_permission == 'n' or parent_permission == 'y' do
-        puts 'Enter y for yes and n for no'
-        print 'Has parent permission? [y/n]: '
-        parent_permission = gets.chomp.downcase
+    until %w[n y].include?(parent_permission)
+      puts 'Enter y for yes and n for no'
+      print 'Has parent permission? [y/n]: '
+      parent_permission = gets.chomp.downcase
     end
     case parent_permission
     when 'n'
@@ -83,7 +83,7 @@ class App
       puts 'Student added successfully'
     end
   end
-  
+
   def create_teacher
     puts 'Add a teacher'
     print 'Enter teacher name: '
