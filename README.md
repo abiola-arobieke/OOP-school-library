@@ -103,7 +103,7 @@ Open the project on your code editor
 
 Contributions, issues, and feature requests are welcome!
 
-Feel free to check the [issues page](https://github.com/abiola-arobieke/OOP-school-library.git/issues).
+Feel free to check the [issues page](https://github.com/abiola-arobieke/OOP-school-library/issues).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
