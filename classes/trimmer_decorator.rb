@@ -1,4 +1,5 @@
-require './classes/base_decorator'
+# require './classes/base_decorator'
+require_relative 'base_decorator'
 
 # Name trimmer class
 class TrimmerDecorator < BaseDecorator
