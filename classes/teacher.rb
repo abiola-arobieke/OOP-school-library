@@ -1,4 +1,5 @@
-require './classes/person'
+# require './classes/person'
+require_relative 'person'
 
 # Define a sub-base class
 class Teacher < Person

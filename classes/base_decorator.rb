@@ -1,4 +1,5 @@
-require './classes/Nameable'
+# require './classes/Nameable'
+require_relative 'Nameable'
 
 # Add the base class for the decorator
 class BaseDecorator < Nameable

@@ -1,4 +1,5 @@
-require './classes/nameable'
+# require './classes/nameable'
+require_relative 'nameable'
 
 # Inherit the person from the nameable class
 class Person < Nameable
