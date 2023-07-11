@@ -88,6 +88,12 @@ Open the project on your code editor
 - Linkedin: [@abiola-arobieke](https://linkedin.com/in/abiola-arobieke)
 - Twitter: [@abiola_arobieke](https://twitter.com/abiola_arobieke)
 
+👤 **Alhassan Osman**
+
+- GitHub: [@flemton](https://github.com/flemton)
+- Linkedin: [@anewtongh](https://linkedin.com/in/newtongh)
+- Twitter: [@oalhassan847](https://twitter.com/oalhassan847)
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## 🔭 Future Features <a name="future-features"></a>
