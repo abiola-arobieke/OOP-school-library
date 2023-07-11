@@ -1,5 +1,6 @@
 require_relative 'app'
 
+# Add select option class
 class SelectOption < App
   def list_of_options
     puts
