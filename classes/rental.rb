@@ -11,4 +11,12 @@ class Rental
     @person = person
     person.rentals << self
   end
+
+  def to_hash
+    {
+      date: date.to_s,
+      book: book.title,
+      person: person.name
+    }
+  end
 end
