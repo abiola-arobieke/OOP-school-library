@@ -30,7 +30,7 @@ module FileManager
     end
   end
 
-  def load_rentals
+  def load_rentals # rubocop:disable Metrics/ClassLength
     return unless File.exist?('../json/rentals.json') && !File.empty?('../json/rentals.json')
 
     rentals_data = JSON.parse(File.read('../json/rentals.json'))
