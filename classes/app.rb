@@ -5,9 +5,9 @@ require_relative 'book'
 require_relative 'classroom'
 require_relative 'rental'
 
+# Manage file data
 module FileManager
-  # Read book data from the file
-  def load_book_data
+  def load_book
     return unless File.exist?('../json/books.json') && !File.zero?('../json/books.json')
 
     book_data = JSON.parse(File.read('../json/books.json'))
@@ -16,8 +16,7 @@ module FileManager
     end
   end
 
-  # Read person's data from the file
-  def load_person_data
+  def load_person
     return unless File.exist?('../json/person.json') && !File.zero?('../json/person.json')
 
     person_data = JSON.parse(File.read('../json/person.json'))
@@ -31,13 +30,13 @@ module FileManager
     end
   end
 
-  def load_rentals_data
+  def load_rentals
     return unless File.exist?('../json/rentals.json') && !File.zero?('../json/rentals.json')
 
     rentals_data = JSON.parse(File.read('../json/rentals.json'))
     rentals_data.each do |rental|
-      book = @book_shelf.find { |book| book.title == rental['book'] }
-      person = @persons.find { |person| person.name == rental['person'] }
+      book = @book_shelf.find { |each_book| each_book.title == rental['book'] }
+      person = @persons.find { |each_person| each_person.name == rental['person'] }
       @rentals << Rental.new(rental['date'], book, person) if book && person
     end
   end
@@ -45,7 +44,6 @@ end
 
 class App
   include FileManager
-
   def initialize
     @book_shelf = []
     @persons = []
@@ -54,11 +52,9 @@ class App
 
   def start_app
     puts 'Welcome to OOP University Library App!'
-
-    # Methods from the FileManager Module
-    load_book_data
-    load_person_data
-    load_rentals_data
+    load_book
+    load_person
+    load_rentals
 
     until list_of_options
       input = gets.chomp
@@ -70,7 +66,6 @@ class App
     end
   end
 
-  # books
   def create_book
     puts 'Add a new book'
     puts 'Enter title: '
@@ -89,7 +84,6 @@ class App
     @book_shelf.each { |book| puts "[Book] Title: #{book.title}, Author: #{book.author}" }
   end
 
-  # persons
   def create_person
     puts 'Enter 1 to add a student or 2 to add a teacher or 7 to go back : '
     option = gets.chomp
