@@ -73,11 +73,6 @@ class App
     age = gets.chomp.to_i
     print 'Has parent permission? [y/n]: '
     parent_permission = gets.chomp.downcase
-    until %w[n y].include?(parent_permission)
-      puts 'Enter y for yes and n for no'
-      print 'Has parent permission? [y/n]: '
-      parent_permission = gets.chomp.downcase
-    end
     student = Student.new(age, name, parent_permission: parent_permission)
     @persons << student
     case parent_permission
