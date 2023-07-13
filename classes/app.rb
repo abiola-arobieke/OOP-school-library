@@ -5,7 +5,47 @@ require_relative 'book'
 require_relative 'classroom'
 require_relative 'rental'
 
+module FileManager
+  # Read book data from the file
+  def load_book_data
+    return unless File.exist?('../json/books.json') && !File.zero?('../json/books.json')
+
+    book_data = JSON.parse(File.read('../json/books.json'))
+    book_data.each do |book|
+      @book_shelf << Book.new(book['title'], book['author'])
+    end
+  end
+
+  # Read person's data from the file
+  def load_person_data
+    return unless File.exist?('../json/person.json') && !File.zero?('../json/person.json')
+
+    person_data = JSON.parse(File.read('../json/person.json'))
+    person_data.each do |person|
+      if person['type'] == 'student'
+        puts person['age']
+        @persons << Student.new(person['age'], person['name'], parent_permission: person['parent_permission'])
+      elsif person['type'] == 'teacher'
+        @persons << Teacher.new(person['age'], person['specialization'], person['name'])
+      end
+    end
+  end
+
+  def load_rentals_data
+    return unless File.exist?('../json/rentals.json') && !File.zero?('../json/rentals.json')
+
+    rentals_data = JSON.parse(File.read('../json/rentals.json'))
+    rentals_data.each do |rental|
+      book = @book_shelf.find { |book| book.title == rental['book'] }
+      person = @persons.find { |person| person.name == rental['person'] }
+      @rentals << Rental.new(rental['date'], book, person) if book && person
+    end
+  end
+end
+
 class App
+  include FileManager
+
   def initialize
     @book_shelf = []
     @persons = []
@@ -14,6 +54,12 @@ class App
 
   def start_app
     puts 'Welcome to OOP University Library App!'
+
+    # Methods from the FileManager Module
+    load_book_data
+    load_person_data
+    load_rentals_data
+
     until list_of_options
       input = gets.chomp
       if input == '7'
@@ -30,13 +76,15 @@ class App
     puts 'Enter title: '
     title = gets.chomp
     puts 'Enter author: '
-    author = gets
+    author = gets.chomp
     book = Book.new(title, author)
-    @book_shelf.push(book)
+    @book_shelf << book
+    File.write('../json/books.json', JSON.pretty_generate(@book_shelf.map(&:to_hash)))
     puts "#{title} has been successfully added to the book shelf."
   end
 
   def list_all_book
+    # puts @book_shelf
     puts 'No book in the libary! Please enter 1 to add a book.' if @book_shelf.empty?
     @book_shelf.each { |book| puts "[Book] Title: #{book.title}, Author: #{book.author}" }
   end
@@ -72,7 +120,7 @@ class App
       print 'Has parent permission? [y/n]: '
       parent_permission = gets.chomp.downcase
     end
-    student = Student.new(age: age, name: name, parent_permission: parent_permission, classroom: @classroom)
+    student = Student.new(age, name, parent_permission: parent_permission)
     @persons << student
     case parent_permission
     when 'n'
@@ -80,6 +128,7 @@ class App
     when 'y'
       puts 'Student added successfully'
     end
+    File.write('../json/person.json', JSON.pretty_generate(@persons.map(&:to_hash)))
   end
 
   def create_teacher
@@ -92,12 +141,14 @@ class App
     specialization = gets.chomp
     teacher = Teacher.new(age, specialization, name)
     @persons << teacher
+    File.write('../json/person.json', JSON.pretty_generate(@persons.map(&:to_hash)))
     puts 'Teacher added successfully'
   end
 
   def list_all_persons
     puts 'No one in the libray list! Add a person.' if @persons.empty?
     @persons.each do |person|
+      puts person.name
       puts "[#{person.class.name}] Name: #{person.name}, ID: #{person.id},  Age: #{person.age}"
     end
   end
@@ -119,6 +170,7 @@ class App
     date = gets.chomp.to_s
     rental = Rental.new(date, @book_shelf[book_id], @persons[person_id])
     @rentals << rental
+    File.write('../json/rentals.json', JSON.pretty_generate(@rentals.map(&:to_hash)))
     puts 'Rental created successfully'
   end
 
