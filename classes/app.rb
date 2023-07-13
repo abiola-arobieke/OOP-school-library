@@ -8,7 +8,7 @@ require_relative 'rental'
 # Manage file data
 module FileManager
   def load_book
-    return unless File.exist?('../json/books.json') && !File.zero?('../json/books.json')
+    return unless File.exist?('../json/books.json') && !File.empty?('../json/books.json')
 
     book_data = JSON.parse(File.read('../json/books.json'))
     book_data.each do |book|
@@ -17,7 +17,7 @@ module FileManager
   end
 
   def load_person
-    return unless File.exist?('../json/person.json') && !File.zero?('../json/person.json')
+    return unless File.exist?('../json/person.json') && !File.empty?('../json/person.json')
 
     person_data = JSON.parse(File.read('../json/person.json'))
     person_data.each do |person|
@@ -31,7 +31,7 @@ module FileManager
   end
 
   def load_rentals
-    return unless File.exist?('../json/rentals.json') && !File.zero?('../json/rentals.json')
+    return unless File.exist?('../json/rentals.json') && !File.empty?('../json/rentals.json')
 
     rentals_data = JSON.parse(File.read('../json/rentals.json'))
     rentals_data.each do |rental|
