@@ -9,10 +9,14 @@ module FileManager
     end
   end
 
-  def load_person
+  def fetch_person_if_exist
     return unless File.exist?('../json/person.json') && !File.empty?('../json/person.json')
 
-    person_data = JSON.parse(File.read('../json/person.json'))
+    JSON.parse(File.read('../json/person.json'))
+  end
+
+  def load_person
+    person_data = fetch_person_if_exist
     person_data.each do |person|
       if person['type'] == 'student'
         @persons << Student.new(person['age'], person['name'], parent_permission: person['parent_permission'])
@@ -22,10 +26,14 @@ module FileManager
     end
   end
 
-  def load_rentals
+  def fetch_rentals_if_exist
     return unless File.exist?('../json/rentals.json') && !File.empty?('../json/rentals.json')
 
-    rentals_data = JSON.parse(File.read('../json/rentals.json'))
+    JSON.parse(File.read('../json/rentals.json'))
+  end
+
+  def load_rentals
+    rentals_data = fetch_rentals_if_exist
     rentals_data.each do |rental|
       book = @book_shelf.find { |each_book| each_book.title == rental['book'] }
       person = @persons.find { |each_person| each_person.name == rental['person'] }
