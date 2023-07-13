@@ -1,9 +1,9 @@
 # Manage file data
 module FileManager
   def load_book
-    return unless File.exist?('../json/books.json') && !File.empty?('../json/books.json')
+    return unless File.exist?('books.json') && !File.empty?('books.json')
 
-    book_data = JSON.parse(File.read('../json/books.json'))
+    book_data = JSON.parse(File.read('books.json'))
     book_data.each do |book|
       @book_shelf << Book.new(book['title'], book['author'])
     end
@@ -20,9 +20,9 @@ module FileManager
   end
 
   def load_person
-    return unless File.exist?('../json/person.json') && !File.empty?('../json/person.json')
+    return unless File.exist?('person.json') && !File.empty?('person.json')
 
-    person_data = JSON.parse(File.read('../json/person.json'))
+    person_data = JSON.parse(File.read('person.json'))
     fetch_person_file(person_data)
   end
 
@@ -35,9 +35,9 @@ module FileManager
   end
 
   def load_rentals
-    return unless File.exist?('../json/rentals.json') && !File.empty?('../json/rentals.json')
+    return unless File.exist?('rentals.json') && !File.empty?('rentals.json')
 
-    rentals_data = JSON.parse(File.read('../json/rentals.json'))
+    rentals_data = JSON.parse(File.read('rentals.json'))
     fetch_rentals_file(rentals_data)
   end
 end

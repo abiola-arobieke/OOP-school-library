@@ -4,7 +4,7 @@ require_relative 'teacher'
 require_relative 'book'
 require_relative 'classroom'
 require_relative 'rental'
-require_relative '../module/file_manager'
+require_relative 'file_manager'
 
 class App
   include FileManager
@@ -19,6 +19,7 @@ class App
     load_book
     load_person
     load_rentals
+    puts File.basename(Dir.getwd)
 
     until list_of_options
       input = gets.chomp
@@ -38,7 +39,7 @@ class App
     author = gets.chomp
     book = Book.new(title, author)
     @book_shelf << book
-    File.write('../json/books.json', JSON.pretty_generate(@book_shelf.map(&:to_hash)))
+    File.write('books.json', JSON.pretty_generate(@book_shelf.map(&:to_hash)))
     puts "#{title} has been successfully added to the book shelf."
   end
 
@@ -81,7 +82,7 @@ class App
     when 'y'
       puts 'Student added successfully'
     end
-    File.write('../json/person.json', JSON.pretty_generate(@persons.map(&:to_hash)))
+    File.write('person.json', JSON.pretty_generate(@persons.map(&:to_hash)))
   end
 
   def create_teacher
@@ -94,7 +95,7 @@ class App
     specialization = gets.chomp
     teacher = Teacher.new(age, specialization, name)
     @persons << teacher
-    File.write('../json/person.json', JSON.pretty_generate(@persons.map(&:to_hash)))
+    File.write('person.json', JSON.pretty_generate(@persons.map(&:to_hash)))
     puts 'Teacher added successfully'
   end
 
@@ -123,7 +124,7 @@ class App
     date = gets.chomp.to_s
     rental = Rental.new(date, @book_shelf[book_id], @persons[person_id])
     @rentals << rental
-    File.write('../json/rentals.json', JSON.pretty_generate(@rentals.map(&:to_hash)))
+    File.write('rentals.json', JSON.pretty_generate(@rentals.map(&:to_hash)))
     puts 'Rental created successfully'
   end
 
