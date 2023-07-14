@@ -6,7 +6,7 @@ RSpec.describe CapitalizeDecorator do
 
   describe 'test the correct_name method to return a capitalize name' do
     it 'should return a capitalized name' do
-      allow(nameable).to receive(:correct_name) {'seun joy'}
+      allow(nameable).to receive(:correct_name) { 'seun joy' }
       expect(subject.correct_name).to eq('Seun joy')
     end
   end
