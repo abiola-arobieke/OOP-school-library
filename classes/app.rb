@@ -4,8 +4,10 @@ require_relative 'teacher'
 require_relative 'book'
 require_relative 'classroom'
 require_relative 'rental'
+require_relative 'file_manager'
 
 class App
+  include FileManager
   def initialize
     @book_shelf = []
     @persons = []
@@ -14,6 +16,11 @@ class App
 
   def start_app
     puts 'Welcome to OOP University Library App!'
+    load_book
+    load_person
+    load_rentals
+    puts File.basename(Dir.getwd)
+
     until list_of_options
       input = gets.chomp
       if input == '7'
@@ -24,24 +31,24 @@ class App
     end
   end
 
-  # books
   def create_book
     puts 'Add a new book'
     puts 'Enter title: '
     title = gets.chomp
     puts 'Enter author: '
-    author = gets
+    author = gets.chomp
     book = Book.new(title, author)
-    @book_shelf.push(book)
+    @book_shelf << book
+    File.write('books.json', JSON.pretty_generate(@book_shelf.map(&:to_hash)))
     puts "#{title} has been successfully added to the book shelf."
   end
 
   def list_all_book
+    # puts @book_shelf
     puts 'No book in the libary! Please enter 1 to add a book.' if @book_shelf.empty?
     @book_shelf.each { |book| puts "[Book] Title: #{book.title}, Author: #{book.author}" }
   end
 
-  # persons
   def create_person
     puts 'Enter 1 to add a student or 2 to add a teacher or 7 to go back : '
     option = gets.chomp
@@ -67,12 +74,7 @@ class App
     age = gets.chomp.to_i
     print 'Has parent permission? [y/n]: '
     parent_permission = gets.chomp.downcase
-    until %w[n y].include?(parent_permission)
-      puts 'Enter y for yes and n for no'
-      print 'Has parent permission? [y/n]: '
-      parent_permission = gets.chomp.downcase
-    end
-    student = Student.new(age: age, name: name, parent_permission: parent_permission, classroom: @classroom)
+    student = Student.new(age, name, parent_permission: parent_permission)
     @persons << student
     case parent_permission
     when 'n'
@@ -80,6 +82,7 @@ class App
     when 'y'
       puts 'Student added successfully'
     end
+    File.write('person.json', JSON.pretty_generate(@persons.map(&:to_hash)))
   end
 
   def create_teacher
@@ -92,12 +95,14 @@ class App
     specialization = gets.chomp
     teacher = Teacher.new(age, specialization, name)
     @persons << teacher
+    File.write('person.json', JSON.pretty_generate(@persons.map(&:to_hash)))
     puts 'Teacher added successfully'
   end
 
   def list_all_persons
     puts 'No one in the libray list! Add a person.' if @persons.empty?
     @persons.each do |person|
+      puts person.name
       puts "[#{person.class.name}] Name: #{person.name}, ID: #{person.id},  Age: #{person.age}"
     end
   end
@@ -119,6 +124,7 @@ class App
     date = gets.chomp.to_s
     rental = Rental.new(date, @book_shelf[book_id], @persons[person_id])
     @rentals << rental
+    File.write('rentals.json', JSON.pretty_generate(@rentals.map(&:to_hash)))
     puts 'Rental created successfully'
   end
 
