@@ -1,5 +1,6 @@
 require_relative '../classes/trimmer_decorator'
 
+# trimmer_decorator tests
 RSpec.describe TrimmerDecorator do
   let(:nameable) { double('Nameable') }
   subject { described_class.new(nameable) }

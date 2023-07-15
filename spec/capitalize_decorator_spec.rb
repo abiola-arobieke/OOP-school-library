@@ -1,5 +1,6 @@
 require_relative '../classes/capitalize_decorator'
 
+# capitalize_decorator tests
 RSpec.describe CapitalizeDecorator do
   let(:nameable) { double('Nameable') }
   subject { described_class.new(nameable) }

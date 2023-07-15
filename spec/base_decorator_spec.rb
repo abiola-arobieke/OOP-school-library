@@ -1,5 +1,6 @@
 require_relative '../classes/base_decorator'
 
+# Basedecorator tests
 RSpec.describe BaseDecorator do
   let(:nameable) { double('Nameable') }
   subject { described_class.new(nameable) }
